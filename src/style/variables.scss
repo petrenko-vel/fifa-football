@@ -1,0 +1,16 @@
+@use "./helpers/" as *;
+
+:root {
+  --color-light: #F3F3F3;
+  --color-accent: #197CFF;
+
+  --font-family-base: 'Montserrat', sans-serif;
+
+  --container-width: #{rem(1790)};
+  --container-padding-x: #{rem(16)};
+
+
+  @include laptop {
+    --container-width: #{rem(1440)};
+  }
+}
