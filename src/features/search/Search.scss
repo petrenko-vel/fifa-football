@@ -1,0 +1,46 @@
+@use "@/style/helpers" as *;
+
+.search {
+    margin-top: rem(26);
+
+    &__inner {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__icon {
+        position: absolute;
+        left: rem(15);
+        color: var(--color-monochrome);
+        pointer-events: none;
+        width: rem(18);
+        height: rem(18);
+        stroke-width: rem(2);
+    }
+
+    &__input {
+        width: 100%;
+        height: rem(41);
+        padding: rem(10) rem(15) rem(10) rem(45);
+        background-color: var(--color-white);
+        border-radius: var(--border-radius-base);
+        font-family: var(--font-family-base);
+        font-size: rem(16);
+        font-weight: 300;
+        color: var(--color-black);
+        outline: none;
+        transition: background-color 0.2s ease;
+
+        &::placeholder {
+            color: var(--color-monochrome);
+            opacity: 0.8;
+            font-size: rem(23);
+        }
+
+        &:focus {
+            background-color: #EDF0F3;
+        }
+    }
+}

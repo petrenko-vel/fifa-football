@@ -1,0 +1,69 @@
+@use "@/style/helpers" as *;
+
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding-block: rem(21);
+    background-color: var(--color-white);
+
+    &__inner {
+        display: flex;
+    }
+
+    &__logo {
+        img {
+            height: rem(40);
+            display: block;
+        }
+    }
+
+    &__nav {
+        position: relative;
+    }
+
+    &__nav-list {
+        display: flex;
+        gap: rem(40);
+        list-style: none;
+        margin-left: rem(24);
+        position: relative;
+        padding-bottom: rem(10);
+    }
+
+    &__nav-link {
+        position: relative;
+        font-family: var(--font-family-base);
+        font-size: rem(25);
+        font-weight: 300;
+
+        &:hover {
+            opacity: 0.5;
+        }
+
+        &--active {
+            &::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                display: block;
+                width: rem(76);
+                height: rem(5);
+                background-color: var(--color-accent);
+            }
+        }
+    }
+
+    &__indicator {
+        position: absolute;
+        bottom: 0;
+        height: rem(3);
+        background-color: var(--color-accent);
+        border-radius: rem(10);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        pointer-events: none;
+        opacity: 0;
+    }
+}

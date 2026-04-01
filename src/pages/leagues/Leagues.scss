@@ -1,3 +1,19 @@
+@use "@/style/helpers" as *;
+
 .leagues {
-    
+    margin-top: rem(79);
+
+    &__inner {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: rem(30) rem(27);
+
+        @include tablet {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include mobile-s {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
 }

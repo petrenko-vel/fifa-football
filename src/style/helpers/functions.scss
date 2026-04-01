@@ -11,6 +11,7 @@
 
 $container-desktop-width: 1920;
 $container-laptop-width: 1440;
+
 /* принимает максимальное и минимальное значение свойства (в пикселях) и возвращает CSS-значение, 
 которое плавно изменяется в зависимости от ширины экрана, оставаясь в заданных пределах */
 
@@ -18,7 +19,7 @@ $container-laptop-width: 1440;
   $maxViewportWidth: $container-desktop-width;                       // Определяются максимальная и минимальная ширина экрана, при которых будет происходить плавный переход
   $minViewportWidth: 390;
 
-  @if ($isEndOfLaptop) {
+  @if $isEndOfLaptop {
     $minViewportWidth: $container-laptop-width;                      // Если флаг $isEndOfLaptop = true, то минимальная ширина берётся не 390px, а ширина макета для ноутбука ($container-laptop-width).
   }
 

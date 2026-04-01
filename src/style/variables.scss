@@ -1,16 +1,18 @@
 @use "./helpers/" as *;
 
 :root {
-  --color-light: #F3F3F3;
-  --color-accent: #197CFF;
-
-  --font-family-base: 'Montserrat', sans-serif;
-
-  --container-width: #{rem(1790)};
+  --color-white: #fff;
+  --color-accent: #116ACC;
+  --color-body-background: #EFF0F1;
+  --color-monochrome: #616B8A;
+  --font-family-base: 'Inter', sans-serif;
+  --font-family-secondary: 'Montserrat', sans-serif;
+  --container-width: #{rem(1220)};
   --container-padding-x: #{rem(16)};
+  --border-radius-base: #{rem(7)};
 
 
   @include laptop {
-    --container-width: #{rem(1440)};
+    --container-width: #{rem(1220)};
   }
 }
