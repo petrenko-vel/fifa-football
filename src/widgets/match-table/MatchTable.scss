@@ -1,3 +1,44 @@
-.match-table {
-    
+@use "@/style/helpers" as *;
+
+.matches-table {
+    display: flex;
+    flex-direction: column;
+    margin-top: rem(47);
+
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: var(--color-white);
+        border: var(--border);
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        padding: rem(24);
+        gap: rem(16);
+
+        @include tablet {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: rem(8);
+        }
+    }
+
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: rem(63);
+        flex-wrap: wrap;
+        font-size: rem(18);
+        font-weight: 500;
+    }
+
+    &__date,
+    &__time {}
+
+    &__status {
+        min-width: 7.5rem;
+    }
+
+    &__teams {}
+
+    &__score {}
 }

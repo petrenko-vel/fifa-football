@@ -4,25 +4,25 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    padding-block: rem(21);
+    padding-block: rem(21) rem(5);
     background-color: var(--color-white);
 
     &__inner {
         display: flex;
+        align-items: flex-end;
     }
 
     &__logo {
         img {
-            height: rem(40);
             display: block;
         }
     }
 
-    &__nav {
+    &__navbar {
         position: relative;
     }
 
-    &__nav-list {
+    &__menu {
         display: flex;
         gap: rem(40);
         list-style: none;
@@ -31,7 +31,7 @@
         padding-bottom: rem(10);
     }
 
-    &__nav-link {
+    &__link {
         position: relative;
         font-family: var(--font-family-base);
         font-size: rem(25);
@@ -45,11 +45,11 @@
             &::before {
                 content: '';
                 position: absolute;
-                bottom: 0;
+                top: 3.1rem;
                 left: 50%;
                 transform: translateX(-50%);
                 display: block;
-                width: rem(76);
+                width: 110%;
                 height: rem(5);
                 background-color: var(--color-accent);
             }

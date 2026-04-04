@@ -1,0 +1,74 @@
+@use "@/style/helpers" as *;
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: rem(4);
+    margin-top: rem(32);
+    padding-bottom: rem(40);
+
+    &__arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: rem(36);
+        height: rem(36);
+        border: none;
+        background: transparent;
+        font-size: rem(28);
+        color: var(--color-monochrome);
+        cursor: pointer;
+        transition: color 0.2s ease;
+        line-height: 1;
+        padding: 0;
+
+        &:hover:not(:disabled) {
+            color: var(--color-accent);
+        }
+
+        &:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    }
+
+    &__page {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: rem(44);
+        height: rem(44);
+        padding: 0 rem(4);
+        border: none;
+        border-radius: var(--border-radius-base);
+        background: transparent;
+        font-size: rem(18);
+        font-family: var(--font-family-secondary);
+        color: var(--color-monochrome);
+        cursor: pointer;
+        transition: background-color 0.2s ease, color 0.2s ease;
+
+        &:hover:not(&--active) {
+            color: var(--color-accent);
+        }
+
+        &--active {
+            background-color: var(--color-accent);
+            color: var(--color-white);
+            font-weight: 600;
+            cursor: default;
+        }
+    }
+
+    &__ellipsis {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: rem(36);
+        height: rem(44);
+        font-size: rem(18);
+        color: var(--color-monochrome);
+        user-select: none;
+    }
+}

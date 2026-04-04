@@ -1,17 +1,36 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useMatch } from 'react-router-dom'
 import Logo from '@/assets/img/logo.png'
 import './Header.scss'
 
 const headerNavLinks = [
     {
         title: "Лиги",
-        href: "/"
+        href: "/",
+        activeOn: ["/", "/leagues/:id"]
     },
     {
         title: "Команды",
-        href: "/teams"
+        href: "/teams",
+        activeOn: ["/teams", "/teams/:id"]
     }
 ]
+
+const NavItem = ({ title, href, activeOn }) => {
+    const matchRoot = useMatch({ path: activeOn[0], end: true });
+    const matchSub = useMatch({ path: activeOn[1], end: false });
+    const isActive = Boolean(matchRoot || matchSub);
+
+    return (
+        <li className="header__item">
+            <NavLink
+                to={href}
+                className={`header__link ${isActive ? 'header__link--active' : ''}`}
+            >
+                {title}
+            </NavLink>
+        </li>
+    );
+};
 
 export const Header = () => {
     return (
@@ -21,19 +40,10 @@ export const Header = () => {
                     <NavLink to="/" className="header__logo">
                         <img src={Logo} alt="FIFA" />
                     </NavLink>
-                    <nav className="header__nav">
-                        <ul className="header__nav-list">
-                            {headerNavLinks.map(({ title, href }) => (
-                                <li className="header__nav-item" key={title}>
-                                    <NavLink
-                                        to={href}
-                                        className={({ isActive }) =>
-                                            `header__nav-link ${isActive ? 'header__nav-link--active' : ''}`
-                                        }
-                                    >
-                                        {title}
-                                    </NavLink>
-                                </li>
+                    <nav className="header__navbar">
+                        <ul className="header__menu">
+                            {headerNavLinks.map((link) => (
+                                <NavItem key={link.title} {...link} />
                             ))}
                         </ul>
                     </nav>

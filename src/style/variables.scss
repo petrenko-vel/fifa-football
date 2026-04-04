@@ -5,12 +5,16 @@
   --color-accent: #116ACC;
   --color-body-background: #EFF0F1;
   --color-monochrome: #616B8A;
+  --color-gray: #9CA3AF;
+
   --font-family-base: 'Inter', sans-serif;
   --font-family-secondary: 'Montserrat', sans-serif;
-  --container-width: #{rem(1220)};
-  --container-padding-x: #{rem(16)};
-  --border-radius-base: #{rem(7)};
 
+  --container-width: #{rem(1220)};
+  --container-padding-x: #{rem(10)};
+
+  --border-radius-base: #{rem(7)};
+  --border: 1px solid var(--color-gray);
 
   @include laptop {
     --container-width: #{rem(1220)};
