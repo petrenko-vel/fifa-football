@@ -1,159 +1,21 @@
-import league1 from '@/assets/img/league1.png'
-import league2 from '@/assets/img/league2.png'
-import './League.scss'
-
-const league = [
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league2,
-    },
-    {
-        name: "Africa Cup",
-        country: "Africa",
-        img: league1,
-    },
-]
+import useFetch from '@/hooks/useFetch';
+import { EntityList } from '@/shared/ui/entityList';
+import './League.scss';
 
 export const League = () => {
+    const { data, loading, error } = useFetch('https://api.football-data.org/v4/competitions');
+
+    if (loading) return <div>Загрузка лиг...</div>;
+    if (error) return <div>Ошибка: {error}</div>;
+
     return (
-        <>
-            {league.map(({ name, country, img }, index) => (
-                <div className="league-card" key={index}>
-                    <div className="league-card__img">
-                        <img src={img} alt={name} />
-                    </div>
-                    <div className="league-card__info">
-                        <h3 className="league-card__title">{name}</h3>
-                        <p className="league-card__country">{country}</p>
-                    </div>
-                </div>
-            ))}
-        </>
-    )
-}
+        <div className="league-grid">
+            <EntityList
+                items={data?.competitions}
+                type="leagues"
+                baseClass="league"
+                showCountry={true}
+            />
+        </div>
+    );
+};

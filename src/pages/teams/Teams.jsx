@@ -1,12 +1,18 @@
+import { Search } from '@/features/search'
 import './Teams.scss'
+import { Team } from '@/entities/team'
 
 export const Teams = () => {
     return (
-        <section className="teams">
-            <div className="container">
-                <h1 className="teams__title">Команды</h1>
-                
-            </div>
-        </section>
+        <>
+            <Search />
+            <section className="cards">
+                <div className="container">
+                    <div className="cards__inner">
+                        <Team />
+                    </div>
+                </div>
+            </section>
+        </>
     )
 }

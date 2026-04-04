@@ -7,9 +7,9 @@ export const Leagues = () => {
     return (
         <>
             <Search />
-            <section className="leagues">
+            <section className="cards">
                 <div className="container">
-                    <div className="leagues__inner">
+                    <div className="cards__inner">
                         <League />
                     </div>
                 </div>
