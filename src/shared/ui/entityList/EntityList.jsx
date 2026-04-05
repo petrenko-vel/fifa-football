@@ -43,15 +43,17 @@ export const EntityList = ({ items, type, modificator, showCountry, query = '' }
 
     return (
         <>
-            {visibleItems.map((item) => (
-                <EntityCard
-                    key={item.id}
-                    data={item}
-                    type={type}
-                    modificator={modificator}
-                    showCountry={showCountry}
-                />
-            ))}
+            <div className="cards__inner">
+                {visibleItems.map((item) => (
+                    <EntityCard
+                        key={item.id}
+                        data={item}
+                        type={type}
+                        modificator={modificator}
+                        showCountry={showCountry}
+                    />
+                ))}
+            </div>
             <Pagination
                 key={query}
                 currentPage={currentPage}

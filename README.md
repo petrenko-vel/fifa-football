@@ -134,7 +134,7 @@ gap: fluid(40, 10);
 В dev-режиме Vite проксирует запросы `/api/*` на `https://api.football-data.org/v4`, подставляя API-ключ из `.env.local`. Это позволяет избежать CORS-ошибок при локальной разработке.
 
 ```
-/api/competitions       → GET /competitions
-/api/teams              → GET /teams
+/api/competitions             → GET /competitions
+/api/teams                    → GET /teams
 /api/competitions/:id/matches → GET /competitions/:id/matches
 ```

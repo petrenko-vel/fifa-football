@@ -10,15 +10,13 @@ export const Leagues = () => {
     return (
         <>
             <Search
-                placeholder="Поиск лиги..."
+                placeholder="Search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
             />
             <section className="cards">
                 <div className="container">
-                    <div className="cards__inner">
-                        <League query={query} />
-                    </div>
+                    <League query={query} />
                 </div>
             </section>
         </>

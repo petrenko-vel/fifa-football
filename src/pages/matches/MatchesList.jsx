@@ -24,7 +24,6 @@ export const MatchesList = () => {
     const matches = data?.matches || [];
 
     return matches.filter((match) => {
-      // Фильтр по дате
       if (dateFrom || dateTo) {
         const matchDate = new Date(match.utcDate);
         const from = dateFrom ? new Date(dateFrom) : null;
@@ -65,7 +64,7 @@ export const MatchesList = () => {
       </div>
       <div className="container">
         <Search
-          placeholder="Поиск по командам..."
+          placeholder="Search"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />

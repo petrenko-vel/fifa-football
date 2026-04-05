@@ -46,7 +46,7 @@
             &::before {
                 content: '';
                 position: absolute;
-                top: rem(35);
+                bottom: 0;
                 left: 50%;
                 transform: translateX(-50%);
                 display: block;

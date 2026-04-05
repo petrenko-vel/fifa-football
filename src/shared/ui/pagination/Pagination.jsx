@@ -61,5 +61,6 @@ export const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                 &#8250;
             </button>
         </nav>
+
     );
 };

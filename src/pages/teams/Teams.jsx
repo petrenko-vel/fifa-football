@@ -9,15 +9,13 @@ export const Teams = () => {
     return (
         <>
             <Search
-                placeholder="Поиск команды..."
+                placeholder="Search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
             />
             <section className="cards">
                 <div className="container">
-                    <div className="cards__inner">
-                        <Team query={query} />
-                    </div>
+                    <Team query={query} />
                 </div>
             </section>
         </>

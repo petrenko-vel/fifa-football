@@ -24,24 +24,26 @@ export const MatchesTable = ({ matches }) => {
 
     return (
         <>
-            <ul className="matches-list__table matches-table">
-                {visibleMatches.map((match) => (
-                    <li key={match.id} className="matches-table__item">
-                        <div className="matches-table__info">
-                            <div className="matches-table__date">{new Date(match.utcDate).toLocaleDateString()}</div>
-                            <div className="matches-table__time">{new Date(match.utcDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
-                            <div className="matches-table__status">{match.status}</div>
-                            <div className="matches-table__teams">
-                                {match.homeTeam.name} — {match.awayTeam.name}
+            <div className="matches-table__container">
+                <ul className="matches-list__table matches-table">
+                    {visibleMatches.map((match) => (
+                        <li key={match.id} className="matches-table__item">
+                            <div className="matches-table__info">
+                                <div className="matches-table__date">{new Date(match.utcDate).toLocaleDateString()}</div>
+                                <div className="matches-table__time">{new Date(match.utcDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                <div className="matches-table__status">{match.status}</div>
+                                <div className="matches-table__teams">
+                                    {match.homeTeam.name} — {match.awayTeam.name}
+                                </div>
                             </div>
-                        </div>
-                        <div className="matches-table__score">
-                            {match.score.fullTime.home ?? '-'}:{match.score.fullTime.away ?? '-'}
-                            {match.score.extraTime && ` (${match.score.extraTime.home}:${match.score.extraTime.away})`}
-                        </div>
-                    </li>
-                ))}
-            </ul>
+                            <div className="matches-table__score">
+                                {match.score.fullTime.home ?? '-'}:{match.score.fullTime.away ?? '-'}
+                                {match.score.extraTime && ` (${match.score.extraTime.home}:${match.score.extraTime.away})`}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
             <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}

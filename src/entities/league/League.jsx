@@ -4,7 +4,7 @@ import { Loader } from '@/shared/ui/loader';
 import './League.scss';
 
 export const League = ({ query }) => {
-    const { data, loading, error } = useFetch('/api/competitions');
+    const { data, loading, error } = useFetch(`/api/competitions`);
 
     if (loading) return <Loader />;
     if (error) return <div>Ошибка: {error}</div>;
