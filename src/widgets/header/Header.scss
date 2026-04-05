@@ -30,24 +30,23 @@
         list-style: none;
         margin-left: fluid(24, 8);
         position: relative;
-        padding-bottom: fluid(10, 4);
     }
 
     &__link {
         position: relative;
         font-family: var(--font-family-base);
-        font-size: fluid(25, 12);
+        font-size: fluid(25, 10);
         font-weight: 300;
 
         &:hover {
-            opacity: 0.5;
+            color: var(--color-accent);
         }
 
         &--active {
             &::before {
                 content: '';
                 position: absolute;
-                top: 1.25em;
+                top: rem(35);
                 left: 50%;
                 transform: translateX(-50%);
                 display: block;

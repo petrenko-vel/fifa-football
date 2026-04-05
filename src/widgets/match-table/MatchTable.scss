@@ -14,6 +14,11 @@
         box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
         padding: rem(24);
         gap: rem(16);
+        transition: all 0.3s ease;
+
+        &:hover {
+            background-color: var(--color-body-background);
+        }
 
         @include tablet {
             flex-direction: column;
