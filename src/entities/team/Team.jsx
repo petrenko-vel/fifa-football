@@ -3,7 +3,7 @@ import { EntityList } from '@/shared/ui/entityList';
 import { Loader } from '@/shared/ui/loader';
 import './Team.scss';
 
-export const Team = () => {
+export const Team = ({ query }) => {
     const { data, loading, error } = useFetch('/api/teams');
 
     if (loading) return <Loader />;
@@ -15,6 +15,7 @@ export const Team = () => {
             type="teams"
             modificator="team"
             showCountry={false}
+            query={query}
         />
     );
 };

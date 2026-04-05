@@ -1,0 +1,11 @@
+@use "@/style/helpers" as *;
+
+.entity-list__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    font-size: rem(16);
+    color: var(--color-gray);
+    margin-top: rem(60);
+    font-family: var(--font-family-base);
+    font-weight: 300;
+}

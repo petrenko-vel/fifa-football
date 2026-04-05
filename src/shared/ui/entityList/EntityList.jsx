@@ -1,28 +1,45 @@
 import { useState, useMemo } from 'react';
 import { EntityCard } from '@/shared/ui/entityCard';
 import { Pagination } from '@/shared/ui/pagination';
+import './EntityList.scss';
+
 
 const ITEMS_PER_PAGE = 16;
 
-export const EntityList = ({ items, type, modificator, showCountry }) => {
+export const EntityList = ({ items, type, modificator, showCountry, query = '' }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
-    if (!items || items.length === 0) return <p>Данные не найдены</p>;
+    const filteredItems = useMemo(() => {
+        if (!items) return [];
+        if (!query.trim()) return items;
+        const q = query.toLowerCase().trim();
+        return items.filter((item) => {
+            const name = item.name?.toLowerCase() ?? '';
+            const country = item.area?.name?.toLowerCase() ?? '';
+            return name.includes(q) || country.includes(q);
+        });
+    }, [items, query]);
 
     const totalPages = useMemo(
-        () => Math.ceil(items.length / ITEMS_PER_PAGE),
-        [items]
+        () => Math.ceil(filteredItems.length / ITEMS_PER_PAGE),
+        [filteredItems]
     );
 
     const visibleItems = useMemo(() => {
         const start = (currentPage - 1) * ITEMS_PER_PAGE;
-        return items.slice(start, start + ITEMS_PER_PAGE);
-    }, [items, currentPage]);
+        return filteredItems.slice(start, start + ITEMS_PER_PAGE);
+    }, [filteredItems, currentPage]);
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
+    if (!items || items.length === 0) return <p>Данные не найдены</p>;
+
+    if (filteredItems.length === 0) {
+        return <p className="entity-list__empty">По запросу «{query}» ничего не найдено</p>;
+    }
 
     return (
         <>
@@ -36,6 +53,7 @@ export const EntityList = ({ items, type, modificator, showCountry }) => {
                 />
             ))}
             <Pagination
+                key={query}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}

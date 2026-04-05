@@ -3,6 +3,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import useFetch from '@/hooks/useFetch';
 import { MatchesTable } from '@/widgets/match-table/MatchTable';
 import { Loader } from '@/shared/ui/loader';
+import { Search } from '@/features/search';
 import './MatchesList.scss';
 
 export const MatchesList = () => {
@@ -15,29 +16,41 @@ export const MatchesList = () => {
 
   const { data, loading, error } = useFetch(apiUrl);
 
+  const [searchQuery, setSearchQuery] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
 
   const filteredMatches = useMemo(() => {
     const matches = data?.matches || [];
-    if (!dateFrom && !dateTo) return matches;
 
     return matches.filter((match) => {
-      const matchDate = new Date(match.utcDate);
-      const from = dateFrom ? new Date(dateFrom) : null;
-      const to = dateTo ? new Date(dateTo + 'T23:59:59') : null;
+      // Фильтр по дате
+      if (dateFrom || dateTo) {
+        const matchDate = new Date(match.utcDate);
+        const from = dateFrom ? new Date(dateFrom) : null;
+        const to = dateTo ? new Date(dateTo + 'T23:59:59') : null;
+        if (from && matchDate < from) return false;
+        if (to && matchDate > to) return false;
+      }
 
-      if (from && matchDate < from) return false;
-      if (to && matchDate > to) return false;
+      // Текстовый поиск по командам
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const home = match.homeTeam?.name?.toLowerCase() ?? '';
+        const away = match.awayTeam?.name?.toLowerCase() ?? '';
+        if (!home.includes(q) && !away.includes(q)) return false;
+      }
+
       return true;
     });
-  }, [data, dateFrom, dateTo]);
+  }, [data, dateFrom, dateTo, searchQuery]);
 
-  const hasFilter = dateFrom || dateTo;
+  const hasFilter = dateFrom || dateTo || searchQuery;
 
   const handleReset = () => {
     setDateFrom('');
     setDateTo('');
+    setSearchQuery('');
   };
 
   if (loading) return <Loader />;
@@ -51,6 +64,11 @@ export const MatchesList = () => {
         </nav>
       </div>
       <div className="container">
+        <Search
+          placeholder="Поиск по командам..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
         <div className="matches-list__date-filters">
           <div className="matches-list__date-filters-start">
             <span className='matches-list__date-filters-text'>Матчи с</span>
@@ -72,17 +90,19 @@ export const MatchesList = () => {
           </div>
           {hasFilter && (
             <button className="matches-list__reset" onClick={handleReset}>
-              Сбросить
+              Сбросить всё
             </button>
           )}
         </div>
 
         {filteredMatches.length === 0 ? (
-          <p className="matches-list__empty">Матчи за выбранный период не найдены</p>
+          <p className="matches-list__empty">Матчи по заданным фильтрам не найдены</p>
         ) : (
-          <MatchesTable key={`${dateFrom}-${dateTo}`} matches={filteredMatches} />
+          <MatchesTable key={`${dateFrom}-${dateTo}-${searchQuery}`} matches={filteredMatches} />
         )}
       </div>
     </div>
   );
 };
+
+
