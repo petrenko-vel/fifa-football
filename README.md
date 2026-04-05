@@ -1,9 +1,6 @@
 # ⚽ FIFA Football
 
 Приложение для просмотра футбольных лиг, команд и матчей на основе [football-data.org API](https://www.football-data.org/).
-
-🔗 **Live Demo:** [petrenko-vel.github.io/fifa-football](https://petrenko-vel.github.io/fifa-football/)
-
 ---
 
 ## Технологии
