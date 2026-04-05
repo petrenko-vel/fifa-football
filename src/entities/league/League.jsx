@@ -8,6 +8,7 @@ export const League = () => {
     if (loading) return <div>Загрузка лиг...</div>;
     if (error) return <div>Ошибка: {error}</div>;
 
+
     return (
         <EntityList
             items={data?.competitions}

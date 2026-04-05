@@ -4,7 +4,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    padding-block: rem(21) rem(5);
+    padding-block: fluid(21, 12) fluid(5, 2);
     background-color: var(--color-white);
 
     &__inner {
@@ -15,6 +15,8 @@
     &__logo {
         img {
             display: block;
+            width: fluid(130, 56);
+            height: auto;
         }
     }
 
@@ -24,17 +26,17 @@
 
     &__menu {
         display: flex;
-        gap: rem(40);
+        gap: fluid(40, 10);
         list-style: none;
-        margin-left: rem(24);
+        margin-left: fluid(24, 8);
         position: relative;
-        padding-bottom: rem(10);
+        padding-bottom: fluid(10, 4);
     }
 
     &__link {
         position: relative;
         font-family: var(--font-family-base);
-        font-size: rem(25);
+        font-size: fluid(25, 12);
         font-weight: 300;
 
         &:hover {
@@ -45,12 +47,12 @@
             &::before {
                 content: '';
                 position: absolute;
-                top: 3.1rem;
+                top: 1.25em;
                 left: 50%;
                 transform: translateX(-50%);
                 display: block;
                 width: 110%;
-                height: rem(5);
+                height: fluid(5, 2);
                 background-color: var(--color-accent);
             }
         }
@@ -59,7 +61,7 @@
     &__indicator {
         position: absolute;
         bottom: 0;
-        height: rem(3);
+        height: fluid(3, 2);
         background-color: var(--color-accent);
         border-radius: rem(10);
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);

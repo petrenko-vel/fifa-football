@@ -4,9 +4,11 @@ import './EntityCard.scss';
 export const EntityCard = ({ data, type, modificator, showCountry = true }) => {
 
     const name = data.name;
-    const img = data.emblemUrl || data.crest;
+    const img = data.emblem || data.crest;
     const country = data.area?.name;
     const id = data.id;
+
+    console.log(data.name, img);
 
     return (
         <Link to={`/${type}/${id}`} className={`entity-card entity-card--${modificator}`}>
