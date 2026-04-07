@@ -1,29 +1,28 @@
 import { useState, useEffect, useMemo } from 'react';
 
+// ---------------------------------------------------------------------------
+// Конфигурация URL
+// ---------------------------------------------------------------------------
+// DEV  → Vite proxy (/api → api.football-data.org, см. vite.config.js)
+// PROD → внешний прокси-сервер (Render / Railway / Cloudflare Worker)
+//        URL задаётся через VITE_PROXY_URL в .env.local
+// ---------------------------------------------------------------------------
+const IS_DEV = import.meta.env.DEV;
 const API_KEY = import.meta.env.VITE_FOOTBALL_API_KEY;
+const PROXY_URL = import.meta.env.VITE_PROXY_URL; // напр. https://my-proxy.onrender.com
 
-// В режиме разработки (npm run dev) используем прокси '/api' из vite.config.js
-// В режиме продакшена (GitHub Pages) используем прямой URL с CORS-прокси
-const BASE_URL = 'https://api.football-data.org/v4';
-const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+const BASE_URL = IS_DEV ? '/api' : `${PROXY_URL}/api`;
 
 const cache = new Map();
 const MAX_CACHE_SIZE = 50;
 
 const useFetch = (path) => {
-    // Формируем URL в зависимости от окружения
     const url = useMemo(() => {
-        const safePath = path.startsWith('/') ? path : `/${path}`;
-        const cleanPath = safePath.replace('/api/', '/').replace('/api', '');
+        // Убираем возможный префикс /api из path, чтобы не дублировать
+        const cleanPath = path.replace(/^\/?api\/?/, '/');
+        const safePath = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
 
-        if (import.meta.env.DEV) {
-            // Локально: используем прокси Vite
-            return `/api${cleanPath}`;
-        } else {
-            // В продакшене (GitHub Pages): используем CORS-прокси + прямой URL
-            const apiUrl = `${BASE_URL}${cleanPath}`;
-            return `${CORS_PROXY}${encodeURIComponent(apiUrl)}`;
-        }
+        return `${BASE_URL}${safePath}`;
     }, [path]);
 
     const [data, setData] = useState(() => cache.get(url) ?? []);
@@ -39,16 +38,22 @@ const useFetch = (path) => {
             return;
         }
 
+        const controller = new AbortController();
+
         const fetchData = async () => {
             try {
                 setLoading(true);
 
+                // В DEV — шлём ключ напрямую через Vite proxy
+                // В PROD — ключ хранится на прокси-сервере, НЕ отправляем его из браузера
+                const headers = IS_DEV
+                    ? { 'X-Auth-Token': API_KEY }
+                    : {};
+
                 const response = await fetch(url, {
                     method: 'GET',
-                    headers: {
-                        'X-Auth-Token': API_KEY,
-                        'Content-Type': 'application/json'
-                    }
+                    headers,
+                    signal: controller.signal,
                 });
 
                 if (!response.ok) {
@@ -56,7 +61,7 @@ const useFetch = (path) => {
                 }
 
                 const result = await response.json();
-                
+
                 if (cache.size >= MAX_CACHE_SIZE) {
                     const firstKey = cache.keys().next().value;
                     cache.delete(firstKey);
@@ -65,18 +70,21 @@ const useFetch = (path) => {
                 cache.set(url, result);
                 setData(result);
             } catch (err) {
-                setError(err.message);
+                if (err.name !== 'AbortError') {
+                    setError(err.message);
+                }
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
+
+        return () => controller.abort();
     }, [url]);
 
     return { data, loading, error };
 };
 
 export default useFetch;
-
 
