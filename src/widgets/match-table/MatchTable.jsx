@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Pagination } from '@/shared/ui/pagination';
 import './MatchTable.scss';
 
@@ -6,6 +6,10 @@ const ITEMS_PER_PAGE = 10;
 
 export const MatchesTable = ({ matches }) => {
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [matches]);
 
     const totalPages = useMemo(
         () => Math.ceil(matches.length / ITEMS_PER_PAGE),

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { EntityCard } from '@/shared/ui/entityCard';
 import { Pagination } from '@/shared/ui/pagination';
 import './EntityList.scss';
@@ -8,6 +8,11 @@ const ITEMS_PER_PAGE = 16;
 
 export const EntityList = ({ items, type, modificator, showCountry, query = '' }) => {
     const [currentPage, setCurrentPage] = useState(1);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [query]);
+
 
     const filteredItems = useMemo(() => {
         if (!items) return [];

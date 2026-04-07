@@ -8,8 +8,6 @@ export const EntityCard = ({ data, type, modificator, showCountry = true }) => {
     const country = data.area?.name;
     const id = data.id;
 
-    console.log(data.name, img);
-
     return (
         <Link to={`/${type}/${id}`} className={`entity-card entity-card--${modificator}`}>
             <div className={`entity-card__img entity-card__img--${modificator}`}>

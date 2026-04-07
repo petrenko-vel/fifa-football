@@ -31,8 +31,6 @@ dist-ssr
 
 # Project files to ignore
 eslint.config.js
-package-lock.json
-package.json
 vite.config.js
 jsconfig.json
 .stylelintrc.json

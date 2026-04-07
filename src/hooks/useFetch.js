@@ -8,6 +8,7 @@ const BASE_URL = 'https://api.football-data.org/v4';
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
 
 const cache = new Map();
+const MAX_CACHE_SIZE = 50;
 
 const useFetch = (path) => {
     // Формируем URL в зависимости от окружения
@@ -55,6 +56,12 @@ const useFetch = (path) => {
                 }
 
                 const result = await response.json();
+                
+                if (cache.size >= MAX_CACHE_SIZE) {
+                    const firstKey = cache.keys().next().value;
+                    cache.delete(firstKey);
+                }
+
                 cache.set(url, result);
                 setData(result);
             } catch (err) {
